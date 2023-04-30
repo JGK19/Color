@@ -15,20 +15,28 @@ class Mouse:
 
 
 class Button:
-    def __init__(self, x, y, images, scale):
+    def __init__(self, x, y, images, scale, HV):
         largura = images[0].get_size()[0]
         altura = images[0].get_size()[1]
         print(largura, altura)
-        self.position = (x, y)
-        self.image = pygame.transform.scale(images[0], (int(largura * scale), int(altura * scale)))
-        self.image_click = pygame.transform.scale(images[1], (int(largura * scale), int(altura * scale)))
+        self.position0 = (x, y)
+        self.position = [x, y]
+        self.image = pygame.transform.scale(images[0], (int(largura * 0.5), int(altura * scale)))
+        self.image_click = pygame.transform.scale(images[1], (int(largura * 0.5), int(altura * scale)))
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.position[0], self.position[1])
         self.pressed = False
         self.pressing = False
+        if HV == 'H':
+            self.bar = {'altura': int(altura * scale), 'largura': int(largura * scale)}
+            self.bar['largura'] *= 10
+        else:
+            self.bar = {'largura': int(largura * scale), 'altura': int(largura * scale)}
+            self.bar['largura'] *= 10
 
     def do_all(self, mouse, win):
         self.rect.topleft = (self.position[0], self.position[1])
+        pygame.draw.rect(win, (0,0,0), (self.position0[0],self.position0[1],self.bar['largura'],self.bar['altura']))
         self.draw(win)
         self.is_click(mouse, win)
         self.movel_button(mouse)
@@ -51,9 +59,9 @@ class Button:
                 self.pressing = False
     def movel_button(self, mouse):
         if self.pressing:
-            position = ((mouse.position[0], self.position[1]))
-            if mouse.position[0] < 100:
-                position = ((100, self.position[1]))
-            elif mouse.position[0] > 640:
-                position = ((640, self.position[1]))
-            self.position = position
+            position = ((mouse.position[0], mouse.position[1]))
+            if (mouse.position[0] > self.position0[0]) and (mouse.position[0] < self.bar['largura']+100):
+                self.position[0] = position[0]
+            if (mouse.position[1] > self.position0[1]) and (mouse.position[1] < self.bar['altura']):
+                self.position[1] = position[1]
+            

@@ -1,5 +1,5 @@
 import pygame
-import help
+from help import (get_color_rgb)
 from classes import (Mouse, Button)
 
 pygame.init()
@@ -13,18 +13,20 @@ def main():
     run = True
     clock = pygame.time.Clock()
 
-    back_color = (0, 0, 0)
+    back_color = (255, 0, 0)
 
     mouse = Mouse()
-    button = Button(400, 300, (squarew, squareg), 3)
+    button_rgb = Button(100, 300, (squarew, squareg), 3, 'H')
 
     while run:
         clock.tick(240)
         WIN.fill(back_color)
         mouse.data_mouse()
-        button.do_all(mouse, WIN)
+        button_rgb.do_all(mouse, WIN)
 
-        back_color = (help.get_color(button.position[0]), 0, 0)
+        new_rgb = get_color_rgb(button_rgb.position[0], button_rgb.bar['largura'], button_rgb.position0[0], back_color)
+
+        back_color = new_rgb
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
