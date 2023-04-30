@@ -28,7 +28,6 @@ class Button:
         self.pressing = False
 
     def do_all(self, mouse, win):
-        pygame.draw.rect(win, (0,0,0), (100,300,600,60))
         self.rect.topleft = (self.position[0], self.position[1])
         self.draw(win)
         self.is_click(mouse, win)

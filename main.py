@@ -25,10 +25,7 @@ def main():
         button.do_all(mouse, WIN)
 
         back_color = (help.get_color(button.position[0]), 0, 0)
-        print(help.get_color(button.position[0]))
-
-        print(mouse.position)
-        print(mouse.left, mouse.right, mouse.scroll)
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
