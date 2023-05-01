@@ -15,25 +15,25 @@ class Mouse:
 
 
 class Button:
-    def __init__(self, x, y, images, scale, HV):
+    def __init__(self, x, y, images, scaleH, scaleL, HV):
         largura = images[0].get_size()[0]
         altura = images[0].get_size()[1]
         print(largura, altura)
         self.position0 = (x, y)
         self.position = [x, y]
-        self.image = pygame.transform.scale(images[0], (int(largura * 0.5), int(altura * scale)))
-        self.image_click = pygame.transform.scale(images[1], (int(largura * 0.5), int(altura * scale)))
+        self.image = pygame.transform.scale(images[0], (int(largura * 0.5), int(altura * scaleH)))
+        self.image_click = pygame.transform.scale(images[1], (int(largura * 0.5), int(altura * scaleH)))
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.position[0], self.position[1])
         self.pressed = False
         self.pressing = False
         self.const = 100
         if HV == 'H':
-            self.bar = {'altura': int(altura * scale), 'largura': int(largura * scale)}
+            self.bar = {'altura': int(altura * scaleH), 'largura': int(largura * scaleL)}
             self.bar['largura'] *= 10
         else:
-            self.bar = {'largura': int(largura * scale), 'altura': int(largura * scale)}
-            self.bar['largura'] *= 10
+            self.bar = {'largura': int(largura * scaleH), 'altura': int(largura * scaleL)}
+            self.bar['altura'] *= 10
 
     def do_all(self, mouse, win):
         self.rect.topleft = (self.position[0], self.position[1])
