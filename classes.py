@@ -27,6 +27,7 @@ class Button:
         self.rect.topleft = (self.position[0], self.position[1])
         self.pressed = False
         self.pressing = False
+        self.const = 100
         if HV == 'H':
             self.bar = {'altura': int(altura * scale), 'largura': int(largura * scale)}
             self.bar['largura'] *= 10
@@ -60,7 +61,7 @@ class Button:
     def movel_button(self, mouse):
         if self.pressing:
             position = ((mouse.position[0], mouse.position[1]))
-            if (mouse.position[0] > self.position0[0]) and (mouse.position[0] < self.bar['largura']+100):
+            if (mouse.position[0] > self.position0[0]) and (mouse.position[0] < self.bar['largura']+self.const):
                 self.position[0] = position[0]
             if (mouse.position[1] > self.position0[1]) and (mouse.position[1] < self.bar['altura']):
                 self.position[1] = position[1]
