@@ -37,3 +37,23 @@ def get_color_rgb(x, max, min, actual_rgb):
         color = get_color(x, setores[5], setores[4])
         return (rgb[0], rgb[1], rgb_max - color)
     return rgb
+
+def delta_sat(rgb):
+    saturationPU = ((rgb - 127)/-127) * 127
+    if saturationPU > 127:
+        return 127
+    return saturationPU
+
+def get_sat_value(x, max, min, actual_rgb):
+    x = x - min
+    max = max - min
+    rgb = actual_rgb
+    sat_R = delta_sat(rgb[0])
+    sat_G = delta_sat(rgb[1])
+    sat_B = delta_sat(rgb[2])
+
+    sat_R = rgb[0] + ((x/max) * sat_R)
+    sat_G = rgb[1] + ((x/max) * sat_G)
+    sat_B = rgb[2] + ((x/max) * sat_G)
+
+    return (int(sat_R), int(sat_B), int(sat_G))
